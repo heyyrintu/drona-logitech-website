@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" role="img" aria-labelledby="title desc">
+  <title id="title">Drona Logitech</title>
+  <desc id="desc">Drona Logitech wordmark: a brass keyline lozenge carrying DL initials, beside a tracked-caps wordmark on lacquer noir.</desc>
+
+  <!-- The identity is dark-first, so the plate travels with the mark and the
+       asset renders correctly on any background it is dropped onto. -->
+  <rect width="720" height="180" fill="#0B0E13"/>
+
+  <!-- Brass lozenge: the same unit that marks every station on the value chain.
+       Drawn as a double keyline, matching components/Logo.jsx. -->
+  <g fill="none" stroke="#C8A24A">
+    <path d="M90 26 L154 90 L90 154 L26 90 Z" stroke-width="2"/>
+    <path d="M90 49 L131 90 L90 131 L49 90 Z" stroke-width="1.5" stroke-opacity="0.55"/>
+  </g>
+  <text x="90" y="90" text-anchor="middle" dominant-baseline="central"
+        font-family="Jost,Futura,Century Gothic,Avenir,sans-serif"
+        font-size="30" font-weight="600" letter-spacing="4" fill="#C8A24A">DL</text>
+
+  <text x="196" y="82" font-family="Jost,Futura,Century Gothic,Avenir,sans-serif"
+        font-size="40" font-weight="500" letter-spacing="7" fill="#F2EBDC">DRONA</text>
+  <text x="396" y="82" font-family="Jost,Futura,Century Gothic,Avenir,sans-serif"
+        font-size="40" font-weight="500" letter-spacing="7" fill="#C8A24A">LOGITECH</text>
+
+  <line x1="197" y1="104" x2="660" y2="104" stroke="#C8A24A" stroke-opacity="0.28" stroke-width="1"/>
+  <text x="197" y="134" font-family="Jost,Futura,Century Gothic,Avenir,sans-serif"
+        font-size="14" font-weight="500" letter-spacing="6" fill="#8A93A1">EMPOWERING PEOPLE</text>
+</svg>

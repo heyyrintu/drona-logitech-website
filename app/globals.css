@@ -1,0 +1,416 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ======================================================================
+   DAYLIGHT DECO - Drona Logitech
+   A bright 1930s freight terminal: ivory paper, parchment panels, brass
+   inlay linework, charcoal type and signal-red lacquer accents.
+
+   The shared class vocabulary (.glass-panel, .surface-cream,
+   .night-surface, .btn-*, .eyebrow, .display) is redefined in place, so
+   every page inherits the new system through one source of truth.
+   ====================================================================== */
+
+:root {
+  --paper: #fffcf7;
+  --parchment: #f7f0e3;
+  --lacquer: #fff8ed;
+  --inlay: #f6e7d4;
+  --ink: #171418;
+  --brass: #8a5a00;
+  --brass-hi: #fea418;
+  --brass-lo: #785000;
+  --ivory: #171418;
+  --signal: #de1c1c;
+  --hairline: rgba(181, 122, 18, 0.30);
+  --hairline-soft: rgba(181, 122, 18, 0.14);
+
+  /* Jost fills both the body and display roles; hierarchy comes from scale,
+     weight and tracking rather than a second family. Binding the variable
+     here keeps font-display a real, resolvable token for Tailwind. */
+  --font-display: var(--font-sans);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  html, body {
+    overflow-x: hidden;
+  }
+  body {
+    @apply bg-paper text-ink-700 antialiased;
+    /* Fine architectural fluting on warm paper. */
+    background-image:
+      repeating-linear-gradient(90deg, rgba(181, 122, 18, 0.035) 0 1px, transparent 1px 46px),
+      radial-gradient(90% 50% at 50% -10%, rgba(254, 164, 24, 0.09), transparent 72%);
+    /* Deliberately not background-attachment: fixed - a fixed layer this large
+       forces a full repaint on every scroll frame and janks on mobile. */
+    background-repeat: repeat, no-repeat;
+  }
+  ::selection {
+    @apply bg-brand-500 text-white;
+  }
+  :where(a, button, summary, input, textarea, select):focus-visible {
+    outline: 2px solid var(--brass);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* -- Type ------------------------------------------------------------
+     Two registers. .display is Jost in tracked caps and carries every
+     heading. .deco-display swaps in Poiret One - pure 1920s geometry, too
+     fine to survive below ~30px, so it is reserved for the largest type
+     only: page titles, section titles, the CTA line.                    */
+  .display {
+    @apply font-display font-semibold uppercase;
+    letter-spacing: 0.055em;
+  }
+  .deco-display {
+    font-family: var(--font-deco), var(--font-display), system-ui, sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.085em;
+    color: var(--ivory);
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-3 font-display text-[11px] font-medium uppercase text-brand-600;
+    letter-spacing: 0.32em;
+  }
+  .eyebrow::before {
+    content: '';
+    @apply h-px w-10 shrink-0;
+    background: linear-gradient(90deg, transparent, var(--brass));
+  }
+
+  /* -- Buttons ---------------------------------------------------------
+     Rectangular plaques with an inset keyline, the way period signage was
+     set. No clip-path: a chamfer would clip the focus outline too.      */
+  .btn-primary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2.5 bg-brand-500 px-8 py-3.5 font-display text-[11px] font-semibold uppercase text-white transition-colors duration-200;
+    letter-spacing: 0.22em;
+    box-shadow: inset 0 0 0 1px rgba(242, 235, 220, 0.18);
+  }
+  .btn-primary:hover {
+    @apply bg-brand-700;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  }
+
+  .btn-sun {
+    @apply inline-flex min-h-11 items-center justify-center gap-2.5 bg-sun-300 px-8 py-3.5 font-display text-[11px] font-semibold uppercase text-ink-900 transition-colors duration-200;
+    letter-spacing: 0.22em;
+  }
+  .btn-sun:hover {
+    @apply bg-sun-200;
+  }
+
+  .btn-secondary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2.5 bg-paper px-8 py-3.5 font-display text-[11px] font-semibold uppercase text-brand-600 transition-colors duration-200;
+    letter-spacing: 0.22em;
+    box-shadow: inset 0 0 0 1px var(--brass);
+  }
+  .btn-secondary:hover {
+    @apply bg-brand-500 text-white;
+    box-shadow: inset 0 0 0 1px var(--signal);
+  }
+
+  .section {
+    @apply py-20 sm:py-28;
+  }
+
+  /* -- Panels ----------------------------------------------------------
+     The old glass card becomes an inlay plaque: flat lacquer face, brass
+     hairline, opposing corner brackets. Two pseudo-elements give the
+     top-left / bottom-right pair - Deco framing, no extra nodes.        */
+  .glass-panel,
+  .deco-panel {
+    @apply relative bg-paper;
+    box-shadow: inset 0 0 0 1px var(--hairline);
+  }
+  .glass-panel::before,
+  .glass-panel::after,
+  .deco-panel::before,
+  .deco-panel::after {
+    content: '';
+    position: absolute;
+    width: 0.85rem;
+    height: 0.85rem;
+    pointer-events: none;
+    border-color: var(--brass);
+    transition: border-color 0.25s ease;
+  }
+  .glass-panel::before,
+  .deco-panel::before {
+    top: 0;
+    left: 0;
+    border-top: 1px solid;
+    border-left: 1px solid;
+  }
+  .glass-panel::after,
+  .deco-panel::after {
+    bottom: 0;
+    right: 0;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+  }
+  .glass-panel:hover::before,
+  .glass-panel:hover::after,
+  .deco-panel:hover::before,
+  .deco-panel:hover::after {
+    border-color: var(--brass-hi);
+  }
+
+  /* -- Surfaces --------------------------------------------------------
+     The shared hero is a sunlit terminal facade: parchment, fine brass
+     fluting, a red lacquer axis and a restrained fan motif. */
+  .surface-cream,
+  .surface-hall {
+    background-color: var(--parchment);
+    background-image:
+      linear-gradient(95deg, rgba(255, 252, 247, 0.98) 0%, rgba(255, 252, 247, 0.92) 42%, rgba(255, 252, 247, 0.52) 74%, rgba(255, 252, 247, 0.24) 100%),
+      repeating-conic-gradient(from 204deg at 62% -14%,
+        rgba(181, 122, 18, 0.15) 0deg 1.3deg, transparent 1.3deg 9deg),
+      radial-gradient(70% 62% at 65% -16%, rgba(222, 28, 28, 0.12), transparent 68%),
+      linear-gradient(180deg, #fffdf8 0%, #f7efdf 100%);
+  }
+  /* Below the two-column breakpoint the copy runs the full width, so the fan
+     has nowhere to sit beside it - flatten the scrim instead of angling it. */
+  @media (max-width: 1023px) {
+    .surface-cream,
+    .surface-hall {
+      background-image:
+        linear-gradient(180deg, rgba(255, 252, 247, 0.88) 0%, rgba(255, 252, 247, 0.96) 100%),
+        repeating-conic-gradient(from 204deg at 62% -14%,
+          rgba(181, 122, 18, 0.13) 0deg 1.5deg, transparent 1.5deg 9deg),
+        radial-gradient(80% 65% at 62% -18%, rgba(222, 28, 28, 0.10), transparent 68%),
+        linear-gradient(180deg, #fffdf8 0%, #f7efdf 100%);
+    }
+  }
+
+  .night-surface {
+    background-color: var(--parchment);
+    background-image:
+      repeating-linear-gradient(90deg, rgba(181, 122, 18, 0.055) 0 1px, transparent 1px 34px),
+      radial-gradient(80% 100% at 50% 0%, rgba(222, 28, 28, 0.08), transparent 70%);
+  }
+
+  /* Kept under its old name; now brass fluting rather than a dotted grid. */
+  .grid-texture-light,
+  .deco-flute {
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(181, 122, 18, 0.055) 0 1px,
+      transparent 1px 34px
+    );
+  }
+
+  /* -- Rules and marks -------------------------------------------------
+     A brass hairline centred on a lozenge - the divider motif that runs
+     through the whole site.                                             */
+  .deco-rule {
+    @apply relative h-px w-full;
+    background: linear-gradient(90deg, transparent, var(--hairline) 15%, var(--hairline) 85%, transparent);
+  }
+  .deco-rule::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.45rem;
+    height: 0.45rem;
+    translate: -50% -50%;
+    rotate: 45deg;
+    background: var(--brass);
+  }
+  /* Brass lozenge - the recurring unit mark. Replaces the old status dot. */
+  .deco-lozenge {
+    @apply inline-block h-1.5 w-1.5 shrink-0 bg-sun-400;
+    rotate: 45deg;
+  }
+  /* Direction-of-flow chevron. Structural, not decorative: it always points
+     the way goods move through the chain. */
+  .deco-chevron {
+    @apply inline-block h-2 w-2 shrink-0;
+    border-top: 1px solid var(--brass);
+    border-right: 1px solid var(--brass);
+    rotate: 45deg;
+  }
+
+  /* Oversized outlined type. Both ghost tokens now stroke in brass. */
+  .text-ghost-dark {
+    -webkit-text-stroke: 1px rgba(75, 16, 21, 0.12);
+    color: transparent;
+  }
+  .text-ghost-sun {
+    -webkit-text-stroke: 1px rgba(181, 122, 18, 0.23);
+    color: transparent;
+  }
+
+  /* Red lacquer flowing into polished brass. */
+  .text-gradient {
+    @apply bg-gradient-to-r from-brand-600 via-brand-500 to-sun-500 bg-clip-text text-transparent;
+  }
+
+  /* The blurred colour blobs are the one thing Deco has no room for.
+     Neutralising the class removes them from every page at once. */
+  .blob {
+    display: none !important;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* -- Signature: the Chain Frieze -------------------------------------
+     A brass spine with five stations. A gleam travels the spine and lights
+     each station as it passes - a departure board marking a route. The
+     vertical form is the hero; the rail is its horizontal echo. */
+  .chain-spine {
+    background: linear-gradient(180deg, transparent, var(--brass-lo) 8%, var(--brass) 50%, var(--brass-lo) 92%, transparent);
+  }
+  .chain-spine::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, var(--brass-hi) 50%, transparent 100%);
+    background-size: 100% 40%;
+    background-repeat: no-repeat;
+    animation: gleam-y 5s linear infinite;
+  }
+  .chain-packet {
+    top: 4%;
+    animation: packet-y 5s linear infinite;
+  }
+  .stage-node {
+    animation: station 5s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 1s - 0.6s);
+  }
+
+  .chain-rail {
+    background: linear-gradient(90deg, transparent, var(--brass-lo) 6%, var(--brass) 50%, var(--brass-lo) 94%, transparent);
+  }
+  .chain-rail::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, var(--brass-hi) 50%, transparent 100%);
+    background-size: 40% 100%;
+    background-repeat: no-repeat;
+    animation: gleam-x 5s linear infinite;
+  }
+  .chain-packet-x {
+    left: 0%;
+    animation: packet-x 5s linear infinite;
+  }
+  .rail-node {
+    animation: station 5s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 0.8s - 0.5s);
+  }
+
+  /* -- Long-form ------------------------------------------------------ */
+  .prose-blog h2 {
+    @apply mt-12 mb-3 font-display text-2xl font-semibold uppercase tracking-[0.05em] text-ink-900;
+  }
+  .prose-blog h3 {
+    @apply mt-8 mb-2 font-display text-lg font-semibold uppercase tracking-[0.08em] text-sun-400;
+  }
+  .prose-blog p {
+    @apply mb-5 leading-[1.8];
+  }
+  .prose-blog ul {
+    @apply mb-5 list-none space-y-2 pl-0;
+  }
+  .prose-blog ul > li {
+    @apply relative pl-6;
+  }
+  .prose-blog ul > li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 0.375rem;
+    height: 0.375rem;
+    rotate: 45deg;
+    background: var(--brass);
+  }
+  .prose-blog ol {
+    @apply mb-5 list-decimal space-y-2 pl-6 marker:font-display marker:text-sun-400;
+  }
+  .prose-blog a {
+    @apply font-medium text-sun-400 underline decoration-sun-700 decoration-1 underline-offset-4 transition-colors hover:text-sun-300;
+  }
+  .prose-blog blockquote {
+    @apply my-7 pl-5 italic text-ink-600;
+    border-left: 2px solid var(--brass);
+  }
+  .prose-blog hr {
+    @apply my-10 h-px border-0;
+    background: linear-gradient(90deg, transparent, var(--hairline), transparent);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes gleam-y {
+  0% { background-position: 0 -45%; }
+  100% { background-position: 0 145%; }
+}
+@keyframes packet-y {
+  0% { top: 4%; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { top: 96%; opacity: 0; }
+}
+@keyframes gleam-x {
+  0% { background-position: -45% 0; }
+  100% { background-position: 145% 0; }
+}
+@keyframes packet-x {
+  0% { left: 0%; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+/* A station lighting up as the gleam reaches it: the brass keyline fills. */
+@keyframes station {
+  0%, 18%, 100% {
+    background-color: #fffcf7;
+    border-color: rgba(181, 122, 18, 0.45);
+    color: #b57a12;
+  }
+  7% {
+    background-color: #fff2d7;
+    border-color: #de1c1c;
+    color: #de1c1c;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-marquee, .animate-float,
+  .chain-packet, .chain-packet-x, .stage-node, .rail-node {
+    animation: none !important;
+  }
+  .chain-spine::after, .chain-rail::after { animation: none !important; opacity: 0; }
+  .chain-packet, .chain-packet-x { opacity: 1; }
+}
