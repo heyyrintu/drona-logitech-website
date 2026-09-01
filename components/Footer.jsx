@@ -123,7 +123,10 @@ export default function Footer() {
       <div className="relative border-t border-sun-400/15">
         <div className="container-site flex flex-col items-center justify-between gap-3 py-6 font-display text-[10px] uppercase tracking-[0.22em] text-ink-400 sm:flex-row">
           <p>© {new Date().getFullYear()} {site.name} · All rights reserved.</p>
-          <p>CIN: U52109DL2023PTC417213</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+            <Link href="/bimi/" className="transition-colors hover:text-brand-600">BIMI Logo</Link>
+            <p>CIN: U52109DL2023PTC417213</p>
+          </div>
         </div>
       </div>
     </footer>

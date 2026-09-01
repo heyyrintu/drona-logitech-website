@@ -42,6 +42,7 @@ export default function sitemap() {
     { path: '/clients/', source: 'app/clients/page.jsx', priority: 0.7, changeFrequency: 'monthly' },
     { path: '/blog/', source: 'app/blog/page.jsx', priority: 0.6, changeFrequency: 'weekly' },
     { path: '/contact/', source: 'app/contact/page.jsx', priority: 0.7, changeFrequency: 'yearly' },
+    { path: '/bimi/', source: 'app/bimi/page.jsx', priority: 0.2, changeFrequency: 'yearly' },
   ].map((p) => ({
     url: `${site.url}${p.path}`,
     lastModified: lastModified(p.source, DATA),
