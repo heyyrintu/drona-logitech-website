@@ -3,3 +3,9 @@ node_modules/
 out/
 .DS_Store
 *.log
+
+# Local environment. The Web3Forms key and contact address live here; keep them
+# out of the repository even though NEXT_PUBLIC_ values ship in the bundle.
+.env
+.env.local
+.env*.local
