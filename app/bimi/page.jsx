@@ -49,8 +49,8 @@ export default function BimiPage() {
                 <Image
                   src="/bimi/logo.svg"
                   alt="Official Drona Logitech BIMI brand mark"
-                  width={1254}
-                  height={1254}
+                  width={1000}
+                  height={1000}
                   unoptimized
                   className="h-full w-full object-contain"
                 />
