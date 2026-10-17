@@ -9,8 +9,8 @@ export default function Logo({ className = 'h-14', priority = false }) {
       <Image
         src="/images/drona-logo.png"
         alt="Drona Logitech"
-        width={613}
-        height={184}
+        width={749}
+        height={232}
         priority={priority}
         sizes="(max-width: 640px) 160px, 210px"
         className={`${className} w-auto max-w-full object-contain`}
